@@ -5,3 +5,6 @@ Gra w statki, zaliczenie laboratorium - Tworzenie i utrzymanie czystego kodu
 
 # Statyczna analiza kodu (wydać w katalogu w którym znajdują się pliki z kodem źródłowym) 
 cppcheck --enable=all  .
+
+
+# TODO : dodać konstruktory domyślne do klas które ich nie posiadają
