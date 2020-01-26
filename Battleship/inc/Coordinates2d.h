@@ -5,7 +5,7 @@
 
 class Coordinates2d : public CoordinatesIf {
     public:
-    explicit Coordinates2d(std::vector<int> coordinates) : mCoordinates(coordinates), mDimension(coordinates.size()) {};
+    explicit Coordinates2d(const std::vector<int>& coordinates) : mCoordinates(coordinates), mDimension(coordinates.size()) {};
     virtual std::vector<int> getCoordinates(void) const;
     virtual bool operator==(const CoordinatesIf &rhs) const;
     private :

@@ -26,7 +26,7 @@ class BoatsGameModel : public GameModelIf {
     }
    };
    struct ComparsionOperator {
-    bool operator()(std::shared_ptr<CoordinatesIf> lhs, std::shared_ptr<CoordinatesIf> rhs) const
+    bool operator()(const std::shared_ptr<CoordinatesIf>& lhs, const std::shared_ptr<CoordinatesIf>& rhs) const
     {
         return *lhs == *rhs;
     }
