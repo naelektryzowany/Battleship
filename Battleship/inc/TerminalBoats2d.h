@@ -19,12 +19,12 @@ class TerminalBoats2d : public GameStrategyIf {
     std::vector<std::vector<Coordinates2d>> getShipCoordinares();
     int readNumberOfMasts();
     std::vector<Coordinates2d> readMastCoordinates(int masts, bool isHorizontal);
-    bool checkIfCoordinatesFitInBoard(Coordinates2d coordinates);
-    int readIntegerValue(std::string prompt);
+    bool checkIfCoordinatesFitInBoard(Coordinates2d& coordinates);
+    int readIntegerValue(std::string &prompt);
     Coordinates2d getHitCoordinates();
     void transformStringToCorrectFormat(std::string& stringToCorrect);
     bool checkIfAnyCollisionExists(std::vector<Coordinates2d> coordinateToCheck, std::vector<std::vector<Coordinates2d>> shipCoordinates);
-    bool getDecisionFromUser(std::string prompt);
+    bool getDecisionFromUser(std::string &prompt);
     std::vector<std::vector<std::shared_ptr<CoordinatesIf>>> coordinates2dToGeneric(std::vector<std::vector<Coordinates2d>> coordinates) const;
     std::unique_ptr<GameModelIf> mGame = nullptr;
     std::unique_ptr<SurfaceIf> mBoard = nullptr;

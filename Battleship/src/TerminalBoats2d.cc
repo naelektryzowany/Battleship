@@ -5,8 +5,6 @@
 #include <algorithm>
 
 void TerminalBoats2d::prepareToGame() {
-    bool loopPredicate = true;
-    std::string userInputEndKeyword = "end";
     mBoardSize = getBoardSize();
     std::vector<std::vector<Coordinates2d>> shipCoordinates = getShipCoordinares();
     mGame.reset(new BoatsGameModel(coordinates2dToGeneric(shipCoordinates), new Ship2dFactory(), new Coordinates2dFactory()));
@@ -27,8 +25,10 @@ void TerminalBoats2d::runGame() {
 }
 
 std::pair<int,int> TerminalBoats2d::getBoardSize() {
-    int xAxis = readIntegerValue("Wprowadź rozmiar mapy(szerokość) : ");
-    int yAxis = readIntegerValue("Wprowadź rozmiar mapy(wysokość) : ");
+    std::string xAxisPrompt = "Wprowadź rozmiar mapy(szerokość) : ";
+    std::string yAxisPrompt = "Wprowadź rozmiar mapy(wysokość) : ";
+    int xAxis = readIntegerValue(xAxisPrompt);
+    int yAxis = readIntegerValue(yAxisPrompt);
     return std::make_pair(xAxis,yAxis);
 }
 
@@ -37,10 +37,13 @@ Coordinates2d TerminalBoats2d::getHitCoordinates() {
     int xAxis = 0;
     int yAxis = 0;
     std::cout << "Wprowadź współrzędne strzału : " << std::endl;
+    std::string xAxisPrompt = "Wprowadź współrzędną x (szerokość) : ";
+    std::string yAxisPrompt = "Wprowadź współrzędną y (wysokość) : ";
     while(loopPredicate == true) {
-        xAxis = readIntegerValue("Wprowadź współrzędną x (szerokość) : ");
-        yAxis = readIntegerValue("Wprowadź współrzędną y (wysokość) : ");
-        if(checkIfCoordinatesFitInBoard(Coordinates2d({xAxis,yAxis}))) {
+        xAxis = readIntegerValue(xAxisPrompt);
+        yAxis = readIntegerValue(yAxisPrompt);
+        Coordinates2d userCoordinate({xAxis,yAxis});
+        if(checkIfCoordinatesFitInBoard(userCoordinate)) {
             loopPredicate = false;
         }
         else {
@@ -55,14 +58,15 @@ std::vector<std::vector<Coordinates2d>> TerminalBoats2d::getShipCoordinares() {
     std::vector<Coordinates2d> mastCoordinates;
     bool loopPredicate = true;
     bool isHorizontal = false;
-    bool userDecision = false;
+    std::string userDecisionPrompt = "Czy chcesz dodać statek ?[T/N] : ";
+    std::string horizontalPrompt = "Układ Poziomy(N - oznacza pionowy) ?[T/N] : ";
     while(loopPredicate == true) {
-        userDecision = getDecisionFromUser("Czy chcesz dodać statek ?[T/N] : ");
+        bool userDecision = getDecisionFromUser(userDecisionPrompt);
         if(userDecision == false) {
             loopPredicate = false;
             continue;
         }
-        isHorizontal = getDecisionFromUser("Układ Poziomy(N - oznacza pionowy) ?[T/N] : ");
+        isHorizontal = getDecisionFromUser(horizontalPrompt);
         int mastNumber = readNumberOfMasts();
         mastCoordinates = readMastCoordinates(mastNumber, isHorizontal);
         if(checkIfAnyCollisionExists(mastCoordinates, shipCoordinates) == true) {
@@ -87,16 +91,18 @@ int TerminalBoats2d::readNumberOfMasts() {
 }
 std::vector<Coordinates2d> TerminalBoats2d::readMastCoordinates(int masts, bool isHorizontal) {
     std::vector<Coordinates2d> shipCoordinates;
-    int xAxis = readIntegerValue("Podaj współrzędną x dla masztu(punkt zaczepienia) : ");
-    int yAxis = readIntegerValue("Podaj współrzędną y dla masztu(punkt zaczepienia) : ");
+    std::string xAxisCoordinate = "Podaj współrzędną x dla masztu(punkt zaczepienia) : ";
+    std::string yAxisCoordinate = "Podaj współrzędną y dla masztu(punkt zaczepienia) : ";
+    int xAxis = readIntegerValue(xAxisCoordinate);
+    int yAxis = readIntegerValue(yAxisCoordinate);
     int iterations = 0;
     while(iterations < masts) {
         Coordinates2d coordinates({xAxis,yAxis});
         if(!checkIfCoordinatesFitInBoard(coordinates)) {
             std::cout << "Podane współrzędne nie umożliwiają postawienia statku składającego się z następującej liczby masztów : " << masts << std::endl;
             iterations = 0;
-            xAxis = readIntegerValue("Podaj współrzędną x dla masztu(punkt zaczepienia) : ");
-            yAxis = readIntegerValue("Podaj współrzędną y dla masztu(punkt zaczepienia) : ");
+            xAxis = readIntegerValue(xAxisCoordinate);
+            yAxis = readIntegerValue(yAxisCoordinate);
         }
         else {
             isHorizontal ? xAxis++ : yAxis++;
@@ -107,7 +113,7 @@ std::vector<Coordinates2d> TerminalBoats2d::readMastCoordinates(int masts, bool 
     return shipCoordinates;
 }
 
-bool TerminalBoats2d::checkIfCoordinatesFitInBoard(Coordinates2d coordinates) {
+bool TerminalBoats2d::checkIfCoordinatesFitInBoard(Coordinates2d& coordinates) {
     int xAxis = coordinates.getCoordinates().front();
     int yAxis = coordinates.getCoordinates().back();
     int coordinatesOk = false;
@@ -117,7 +123,7 @@ bool TerminalBoats2d::checkIfCoordinatesFitInBoard(Coordinates2d coordinates) {
     return coordinatesOk;
 }
 
-int TerminalBoats2d::readIntegerValue(std::string prompt) {
+int TerminalBoats2d::readIntegerValue(std::string& prompt) {
     int input = 0;
     do {
         std::cout << prompt;
@@ -153,7 +159,7 @@ bool TerminalBoats2d::checkIfAnyCollisionExists(std::vector<Coordinates2d> coord
     return collisionExist;
 }
 
-bool TerminalBoats2d::getDecisionFromUser(std::string prompt) {
+bool TerminalBoats2d::getDecisionFromUser(std::string &prompt) {
     bool loopPredicate = true;
     bool userDecision = false;
     std::string userInput;

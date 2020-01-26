@@ -5,7 +5,7 @@
 
 class ShipMast {
     public:
-    ShipMast(Coordinates2d coordinates) : mCoordinates(coordinates) {}
+    explicit ShipMast(const Coordinates2d& coordinates) : mCoordinates(coordinates) {}
     virtual const Coordinates2d& getCoordinates() const;
     virtual void setStatus(bool newStatus);
     virtual bool getStatus() const;

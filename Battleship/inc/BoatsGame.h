@@ -7,7 +7,7 @@
 
 class BoatsGame : public GameControllerIf {
     public:
-    BoatsGame(GameStrategyIf *gameStrategy) : mGameStrategy(gameStrategy) {}
+    explicit BoatsGame(GameStrategyIf *gameStrategy) : mGameStrategy(gameStrategy) {}
     BoatsGame(const BoatsGame&) = delete;
     BoatsGame(BoatsGame&&) = delete;
     BoatsGame& operator=(const BoatsGame&) = delete;

@@ -8,7 +8,7 @@ class ShipTest : public ::testing::Test {
     std::vector<int> mCoordinateXYSecond{1,3};
     Coordinates2d mCordinatesForMastFirst{mCoordinateXYFirst};
     Coordinates2d mCordinatesForMastSecond{mCoordinateXYSecond};
-    std::vector<Coordinates2d> mShipCoordinates{mCoordinateXYFirst, mCoordinateXYSecond};
+    std::vector<Coordinates2d> mShipCoordinates{mCordinatesForMastFirst, mCordinatesForMastSecond};
     Ship2d mShipToTest{mShipCoordinates};
 };
 
@@ -25,7 +25,7 @@ TEST_F(ShipTest, checkIfProperCoordinatesAreReturnedTest)
   std::vector<int> coordinateXYSecond{1,3};
   Coordinates2d cordinatesForMastFirst{coordinateXYFirst};
   Coordinates2d cordinatesForMastSecond{coordinateXYSecond};
-  std::vector<Coordinates2d> shipCoordinates{coordinateXYFirst, coordinateXYSecond};
+  std::vector<Coordinates2d> shipCoordinates{cordinatesForMastFirst, cordinatesForMastSecond};
   Ship2d ship{shipCoordinates};
   std::vector<std::reference_wrapper<const CoordinatesIf>> expectedCoordinates = ship.getCoordinates();
   std::vector<std::reference_wrapper<const CoordinatesIf>> actualCoordinates = mShipToTest.getCoordinates();

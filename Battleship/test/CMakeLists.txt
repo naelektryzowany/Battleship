@@ -11,4 +11,3 @@ list(FILTER SOURCES EXCLUDE REGEX  ".*main.cc$")
 set(PThreadLib -pthread)
 add_executable(game ${SOURCES})
 target_link_libraries(game ${GTEST_BOTH_LIBRARIES} ${PThreadLib})
-

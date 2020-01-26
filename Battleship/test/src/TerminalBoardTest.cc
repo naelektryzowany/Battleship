@@ -13,7 +13,7 @@ class TerminalBoardTest : public ::testing::Test {
     std::vector<int> mCoordinateXYSecond{1,2};
     Coordinates2d mCordinatesForMastFirst{mCoordinateXYFirst};
     Coordinates2d mCordinatesForMastSecond{mCoordinateXYSecond};
-    std::vector<Coordinates2d> mShipCoordinates{mCoordinateXYFirst, mCoordinateXYSecond};
+    std::vector<Coordinates2d> mShipCoordinates{mCordinatesForMastFirst, mCordinatesForMastSecond};
     std::vector<std::vector<Coordinates2d>> mShipsCoordinates{mShipCoordinates};
     TerminalBoard mBoard{mShipsCoordinates, mWidth, mHeight, mShipRepresentation, mBoardRepresentation, mHitRepresentation};
 };

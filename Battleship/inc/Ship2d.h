@@ -5,7 +5,7 @@
 
 class Ship2d : public ShipIf {
     public:
-    Ship2d(std::vector<Coordinates2d> coordinates);
+    explicit Ship2d(std::vector<Coordinates2d> coordinates);
     virtual std::vector<std::reference_wrapper<const CoordinatesIf>> getCoordinates() const;
     virtual bool getStatus() const;
     virtual void hit(CoordinatesIf& coordinate);

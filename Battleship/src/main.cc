@@ -9,5 +9,6 @@ int main(void) {
     GameControllerIf* game = new BoatsGame(new TerminalBoats2d); // TODO memory leak
     game->prepareToGame();
     game->runGame();
+    delete game;
     return 0;
 }
